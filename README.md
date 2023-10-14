@@ -92,3 +92,14 @@
 
 
 ## Роуты
+
+    atm/radius - присласть UserGeolocation geolocation
+        ответ: List<ATMView>
+    atm/sort - прислать ATMRequest request
+        ответ: List<AtmView>
+    atm/{id} - вместо {id} при запросе вставлять uuid
+        ответ: ATMDto
+
+    office/
+    office/
+    office/
