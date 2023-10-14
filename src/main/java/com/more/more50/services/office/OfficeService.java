@@ -57,6 +57,7 @@ public class OfficeService {
     @Async
     public CompletableFuture<List<OfficeView>> sortByRequest(OfficeRequest request)
     {   
+        logger.info("Sorting offices by request");
         List<OfficeModel> models = new ArrayList<>();
         for(int i =0; i < request.offices.size(); i++)
         {
@@ -74,6 +75,7 @@ public class OfficeService {
         }
         
         views = notIndividual(request, models);
+        logger.info("End sorting offices");
         return CompletableFuture.completedFuture(views);
     }
 
@@ -184,6 +186,7 @@ public class OfficeService {
     @Async
     public CompletableFuture<OfficeModelDto> getOfficeById(UUID id)
     {
+        logger.info("getting office by id");
         return CompletableFuture.completedFuture(DTOMapper.AsOfficeDto(repo.findById(id).get()));
     }
 }
