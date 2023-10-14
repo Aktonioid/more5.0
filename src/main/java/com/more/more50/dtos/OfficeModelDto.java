@@ -6,6 +6,11 @@ import java.util.UUID;
 import com.more.more50.models.office.Hours;
 import com.more.more50.models.office.OfficeType;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class OfficeModelDto 
 {
     UUID id;

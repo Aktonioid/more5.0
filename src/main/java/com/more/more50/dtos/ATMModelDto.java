@@ -6,6 +6,11 @@ import org.springframework.lang.Nullable;
 
 import com.more.more50.models.atm.Services;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class ATMModelDto 
 {
     @Nullable

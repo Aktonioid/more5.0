@@ -21,7 +21,6 @@ import com.more.more50.models.office.OfficeModel;
 import com.more.more50.models.office.OfficeRequest;
 import com.more.more50.repos.OfficeRepo;
 import com.more.more50.services.HelpService;
-import com.more.more50.views.ATMView;
 import com.more.more50.views.OfficeView;
 import com.more.more50.views.ViewMapper;
 
@@ -187,6 +186,7 @@ public class OfficeService {
     public CompletableFuture<OfficeModelDto> getOfficeById(UUID id)
     {
         logger.info("getting office by id");
-        return CompletableFuture.completedFuture(DTOMapper.AsOfficeDto(repo.findById(id).get()));
+        OfficeModel model = repo.findById(id).get();
+        return CompletableFuture.completedFuture(DTOMapper.AsOfficeDto(model));
     }
 }

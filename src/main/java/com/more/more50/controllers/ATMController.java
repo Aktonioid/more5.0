@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpStatusCodeException;
 
@@ -47,9 +48,11 @@ public class ATMController
         return ResponseEntity.ok(service.SortByServices(request).join());
     }
 
-    @GetMapping("/{id}}")
-    public ResponseEntity<ATMModelDto> getById(@PathVariable UUID id)
+    @GetMapping("/{id}")
+    public ResponseEntity<ATMModelDto> getById(@PathVariable String id)
     {
-        return ResponseEntity.ok(service.getModelById(id).join());
+        UUID uid = UUID.fromString(id);
+        ATMModelDto dto = service.getModelById(uid).join();
+        return ResponseEntity.ok(dto);
     }
 }

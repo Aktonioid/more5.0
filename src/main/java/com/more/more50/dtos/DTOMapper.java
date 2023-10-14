@@ -9,6 +9,7 @@ public class DTOMapper
     {
         ATMModelDto dto = new ATMModelDto();
 
+        dto.id = model.getId();
         dto.address = model.getAddress();
         dto.allDay = model.isAllDay();
         dto.distance = model.getDistance();
@@ -23,6 +24,7 @@ public class DTOMapper
     {
         OfficeModelDto dto = new OfficeModelDto();
 
+        dto.id = model.getId();
         dto.address = model.getAddress();
         dto.distance = model.getDistance();
         dto.hasRamp = model.isHasRamp();

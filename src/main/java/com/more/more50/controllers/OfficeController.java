@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -40,9 +41,10 @@ public class OfficeController
         return ResponseEntity.ok(service.sortByRequest(request).join());
     }
 
-    @GetMapping("/{id}}")
+    @GetMapping("/{id}")
     public ResponseEntity<OfficeModelDto> getOfficeById(@PathVariable UUID id)
     {
+        System.out.println("iohfgdsjkghjklfd");
         return ResponseEntity.ok(service.getOfficeById(id).join());
     }
 }
