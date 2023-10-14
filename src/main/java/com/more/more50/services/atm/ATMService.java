@@ -83,8 +83,7 @@ public class ATMService
         if(request.isSupportsRubReq()) reqServices++;
         if(request.isSupportsUsdReq()) reqServices++;
         if(request.isWheelchairReq()) reqServices++;
-        System.out.println(reqServices);
-        System.out.println();
+        
 
         // если в зарпосе не указаны требования, то сортируем просто по удаленности
         if(reqServices == 0){
