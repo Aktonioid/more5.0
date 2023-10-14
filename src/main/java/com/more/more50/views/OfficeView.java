@@ -15,13 +15,15 @@ public class OfficeView
     double latitude;//широта
     double longitude;//долгота
 
+    int workload;
     double distance;
 
-    public OfficeView(UUID id,double distance ,double latitude, double longitude)
+    public OfficeView(UUID id,double distance ,double latitude, double longitude, int workload)
     {
         this.id = id;
         this.distance = distance;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.workload = workload;
     }
 }

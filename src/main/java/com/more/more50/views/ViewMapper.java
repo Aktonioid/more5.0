@@ -25,6 +25,6 @@ public class ViewMapper
 
     public static OfficeView asOfficeView(OfficeModel model, double distance)
     {
-        return new OfficeView(model.getId(), distance, model.getLatitude(), model.getLongitude());
+        return new OfficeView(model.getId(), distance, model.getLatitude(), model.getLongitude(), model.getWorkload());
     } 
 }
