@@ -100,6 +100,9 @@
     atm/{id} - вместо {id} при запросе вставлять uuid
         ответ: ATMDto
 
-    office/
-    office/
-    office/
+    office/ofs - прислать UserGeolocation geolocation
+        ответ: List<OfficeView>
+    office/sort - прислать OfficeRequest request
+        ответ: List<OfficeView>
+    office/{id} - вместо {id} при запросе вставлять uuid
+        ответ: OfficeModelDto
