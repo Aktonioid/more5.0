@@ -2,6 +2,8 @@ package com.more.more50.controllers;
 
 import java.util.List;
 
+import javax.swing.text.View;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpStatusCodeException;
 
 import com.more.more50.models.UserGeolocation;
+import com.more.more50.models.atm.AtmRequest;
+import com.more.more50.repos.ATMRepo;
 import com.more.more50.services.atm.ATMService;
 import com.more.more50.views.ATMView;
 
@@ -24,8 +28,17 @@ public class ATMController
 
     //получение отделений в радиусе
     @GetMapping("/radius")
-    public ResponseEntity<List<ATMView>> getAtmsInRadius(@RequestBody UserGeolocation geolocation)
+    public ResponseEntity<List<ATMView>> getAtmsInRadius(@RequestBody UserGeolocation geolocation)throws Exception
     {
-        return ResponseEntity.ok(service.GetATMsInRadius(geolocation).join());
+        System.out.println(geolocation.latitude+"  "+geolocation.longitude);
+        System.out.println(geolocation.distance);
+        
+        
+        return ResponseEntity.ok(service.GetATMsInRadius(geolocation).get());
+    }
+
+    public ResponseEntity<List<AtmRequest>> sortByServices(@RequestBody AtmRequest request)
+    {
+        return ResponseEntity.ok(null);
     }
 }

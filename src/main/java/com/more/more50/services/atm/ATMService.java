@@ -2,6 +2,7 @@ package com.more.more50.services.atm;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.more.more50.dtos.ATMModelDto;
 import com.more.more50.models.UserGeolocation;
 import com.more.more50.models.atm.ATMModel;
+import com.more.more50.models.atm.AtmRequest;
 import com.more.more50.repos.ATMRepo;
 import com.more.more50.services.HelpService;
 import com.more.more50.views.ATMView;
@@ -37,8 +39,8 @@ public class ATMService
         
         for(int i = 0; i < allAtms.size(); i++)
         {
-            double distance = HelpService.CalculateDistance(allAtms.get(i).getLatitude(), allAtms.get(i).getLongitude(),
-                                                             geolocation.latitude, geolocation.longitude);
+            double distance = HelpService.CalculateDistance(geolocation.latitude, geolocation.longitude,
+                                                            allAtms.get(i).getLatitude(),allAtms.get(i).getLongitude());
             if(distance <= geolocation.distance)
             {
                 atmViewsInRadius.add(ViewMapper.AsView(allAtms.get(i), distance));
@@ -46,5 +48,15 @@ public class ATMService
         }
         System.out.println("ExecutionTime is " + (System.currentTimeMillis() - startTime) +"ms");
         return CompletableFuture.completedFuture(atmViewsInRadius);
+    }
+
+    @Async
+    public CompletableFuture<List<ATMModelDto>> SortByServices(AtmRequest request)
+    {
+        List<UUID> ids = request.getAtms().stream().map(ViewMapper::AsId).toList();
+        List<ATMModel> models =repo.findAllById(ids);
+
+        
+        return null;
     }
 }

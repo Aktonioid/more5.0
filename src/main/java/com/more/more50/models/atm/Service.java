@@ -9,6 +9,6 @@ import lombok.Setter;
 @Setter
 //класс особенности банкомата
 public class Service implements Serializable{
-    String serviceCapability;
-    String serviceActivity;
+    boolean serviceCapability;
+    boolean serviceActivity;
 }
