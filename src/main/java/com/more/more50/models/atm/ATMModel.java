@@ -27,5 +27,7 @@ public class ATMModel {
 
     Services services; //особенности банкомата
 
-    int distanse; //расстояние от пользователя до банкомата 
+    double distance; //расстояние от пользователя до банкомата 
+
+    int reqServices; // количество необходимых сервисов
 }

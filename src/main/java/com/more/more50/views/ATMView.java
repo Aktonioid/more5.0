@@ -9,11 +9,25 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
+@RequiredArgsConstructor
 // модель для отображения на карте отделений в заданном радиусе
 public class ATMView 
 {
     UUID id;
     
+    double latitude;//широта
+    double longitude;//долгота
+
     double distance;
+
+    int reqServices;
+
+    public ATMView(UUID id, double distance,double latitude, double longitude, int reqServices)
+    {
+        this.id = id;
+        this.distance = distance;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.reqServices = reqServices;
+    }
 }

@@ -1,6 +1,7 @@
 package com.more.more50.controllers;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.swing.text.View;
 
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpStatusCodeException;
 
+import com.more.more50.dtos.ATMModelDto;
 import com.more.more50.models.UserGeolocation;
 import com.more.more50.models.atm.AtmRequest;
 import com.more.more50.repos.ATMRepo;
@@ -37,8 +39,16 @@ public class ATMController
         return ResponseEntity.ok(service.GetATMsInRadius(geolocation).get());
     }
 
-    public ResponseEntity<List<AtmRequest>> sortByServices(@RequestBody AtmRequest request)
+    @GetMapping("/sort")
+    public ResponseEntity<List<ATMView>> sortByServices(@RequestBody AtmRequest request)
     {
-        return ResponseEntity.ok(null);
+        
+        return ResponseEntity.ok(service.SortByServices(request).join());
+    }
+
+    @GetMapping("/getatm")
+    public ResponseEntity<ATMModelDto> getById(UUID id)
+    {
+        return ResponseEntity.ok(service.getModelById(id).join());
     }
 }
