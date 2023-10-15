@@ -32,7 +32,7 @@ public class ATMController
     private ATMService service;
 
     //получение отделений в радиусе
-    //Это костыль, потому что, инчае боди не передать, ибо axios
+    @CrossOrigin("http://localhost:5173")
     @GetMapping("/radius")
     public ResponseEntity<List<ATMView>> getAtmsInRadius(double latitude, double longitude, double distance)throws Exception
     {   
@@ -43,6 +43,8 @@ public class ATMController
 
         return ResponseEntity.ok(service.GetATMsInRadius(geolocation).join());
     }
+    
+    @CrossOrigin("http://localhost:5173")
     @GetMapping("/sort")
     public ResponseEntity<List<ATMView>> sortByServices(boolean wheelchairReq,boolean blindReq,
                                                         boolean nfcForBankCardsReq, boolean qrReadReq,
@@ -71,6 +73,7 @@ public class ATMController
         return ResponseEntity.ok(service.SortByServices(request).join());
     }
 
+    @CrossOrigin("http://localhost:5173")
     @GetMapping("/{id}")
     public ResponseEntity<ATMModelDto> getById(@PathVariable String id)
     {

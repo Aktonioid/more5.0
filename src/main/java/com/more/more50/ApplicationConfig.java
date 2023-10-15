@@ -38,7 +38,7 @@ public class ApplicationConfig
     {
         CorsConfiguration configuration =new CorsConfiguration();
         configuration.setMaxAge((long)1800);
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080", "https://localhost:8080", "http://localhost:5173"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080", "http://localhost:5173"));
         configuration.setAllowedMethods(Arrays.asList("POST","GET"));
         configuration.setExposedHeaders(Arrays.asList("Access-Control-Allow-Origin","Access-Control-Allow-Credentials"));
         
