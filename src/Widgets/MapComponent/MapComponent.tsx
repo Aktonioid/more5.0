@@ -42,21 +42,20 @@ const MapComponent:FC<MapComponentProps> =  ({isAtm, resultSwitcher, coordinates
         changeCoordinates(coordinates)
     }
 
-    const markerClickHandler = (id: string) => {
+    const officeClickHandler = (id: string) => {
         if(!resultSwitcher.state){
             resultSwitcher.switchHandler()
         }
-        if(isAtm){
-            fetchOneAtm(id)
-        }else {
-            fetchOneOffice(id)
+        fetchOneOffice(id)
+
+    }
+
+    const atmClickHandler = (id: string) => {
+        if(!resultSwitcher.state){
+            resultSwitcher.switchHandler()
         }
+        fetchOneAtm(id)
     }
-
-    if(error){
-        console.log(error)
-    }
-
 
     return (
         <YMap
@@ -68,22 +67,22 @@ const MapComponent:FC<MapComponentProps> =  ({isAtm, resultSwitcher, coordinates
             <YMapDefaultFeaturesLayer />
 
             <YMapMarker coordinates={coordinates} draggable={true} onDragEnd={onDragMarker} markerElement={userMarker()} />
-            {isAtm && entities.length > 0 && entities.map(entity => (
+            {entities && entities.map(entity => (
                 <YMapMarker
                     key={entity.id}
-                    coordinates={[entity.latitude, entity.longitude]}
+                    coordinates={[entity.longitude, entity.latitude]}
                     id={entity.id}
                     markerElement={entityMarker()}
-                    onClick={() => markerClickHandler(entity.id)}
+                    onClick={() => atmClickHandler(entity.id)}
                 />
             ))}
-            {!isAtm && offices.length > 0 && offices.map(entity => (
+            {offices && offices.map(entity => (
                 <YMapMarker
                     key={entity.id}
-                    coordinates={[entity.latitude, entity.longitude]}
+                    coordinates={[entity.longitude, entity.latitude]}
                     id={entity.id}
                     markerElement={entityMarker()}
-                    onClick={() => markerClickHandler(entity.id)}
+                    onClick={() => officeClickHandler(entity.id)}
                 />
             ))}
 

@@ -1,14 +1,18 @@
-import React, {FC, FormEventHandler} from 'react';
+import React, {FC,  MouseEventHandler} from 'react';
 import classes from './AtmFilterComponent.module.css'
 import CheckBox from "../../Shared/ui/CheckBox/CheckBox";
 import {useInput} from "../../Shared/hooks/useInput";
-import {useAppSelector} from "../../Shared/hooks/useAppSelector";
 import {RequestParamsATM} from "../../Entities/requestParams";
-import {IShortAtm} from "../../Entities/shortAtm";
+import {fetchFilteredAtms} from "../../App/store/actions/manyEntitiesAsyncActions";
+import {useActions} from "../../Shared/hooks/useActions";
+import {LngLat} from "@yandex/ymaps3-types";
 
-const AtmFilterComponent: FC = () => {
-    const {entities} = useAppSelector(state => state.manyEntities)
+interface FilteredComponents {
+    coordinates: LngLat
+}
 
+const AtmFilterComponent: FC<FilteredComponents> = ({coordinates}) => {
+    const {fetchFilteredAtms} = useActions()
     const wheelchair = useInput(false)
     const blind = useInput(false)
     const nfcForBankCard = useInput(false)
@@ -17,11 +21,10 @@ const AtmFilterComponent: FC = () => {
     const supportChargeRub = useInput(false)
     const supportEur = useInput(false)
     const supportRub = useInput(false)
-    const submitHandler: FormEventHandler<HTMLFormElement> = (event) => {
+    const submitHandler: MouseEventHandler<HTMLButtonElement> = (event) => {
         event.preventDefault()
 
         const reqObject: RequestParamsATM = {
-            atms: entities,
             wheelchairReq: wheelchair.state,
             blindReq: blind.state,
             nfcForBankCardReq: nfcForBankCard.state,
@@ -32,10 +35,12 @@ const AtmFilterComponent: FC = () => {
             supportsRubReq: supportRub.state
         }
 
+        fetchFilteredAtms(reqObject, coordinates)
+
 
     }
     return (
-        <form className={classes.form} onSubmit={submitHandler}>
+        <form className={classes.form} >
             <CheckBox label={'Пандус для колясок'} value={wheelchair.state} changeHandler={wheelchair.changeHandler}/>
             <CheckBox label={'Для слабовидящих'} value={blind.state} changeHandler={blind.changeHandler}/>
             <CheckBox label={'Поддержка NFC'} value={nfcForBankCard.state} changeHandler={nfcForBankCard.changeHandler}/>
@@ -44,7 +49,7 @@ const AtmFilterComponent: FC = () => {
             <CheckBox label={'Обмен Рубля'} value={supportChargeRub.state} changeHandler={supportChargeRub.changeHandler}/>
             <CheckBox label={'Прием/Выдача Евро'} value={supportEur.state} changeHandler={supportEur.changeHandler}/>
             <CheckBox label={'Прием/Выдача Рублей'} value={supportRub.state} changeHandler={supportRub.changeHandler}/>
-            <button type="submit" className={classes.button}>Submit</button>
+            <button type="button" className={classes.button} onClick={submitHandler}>Submit</button>
         </form>
     );
 };
