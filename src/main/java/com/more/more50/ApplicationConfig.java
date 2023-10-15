@@ -15,6 +15,7 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableAsync
@@ -28,15 +29,18 @@ public class ApplicationConfig
         // csrf(AbstractHttpConfigurer::disable)
         .authorizeHttpRequests(auth -> auth.anyRequest().permitAll());
         
+        http.cors(Customizer.withDefaults());
         return http.build();
     }
 
+    @Bean
     CorsConfigurationSource configurationSource()
     {
         CorsConfiguration configuration =new CorsConfiguration();
         configuration.setMaxAge((long)1800);
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080", "https://localhost:8080", "https://localhost:5173"));
-        configuration.setAllowedMethods(Arrays.asList("GET"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080", "https://localhost:8080", "http://localhost:5173"));
+        configuration.setAllowedMethods(Arrays.asList("POST","GET"));
+        configuration.setExposedHeaders(Arrays.asList("Access-Control-Allow-Origin","Access-Control-Allow-Credentials"));
         
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,19 +32,41 @@ public class ATMController
     private ATMService service;
 
     //получение отделений в радиусе
+    //Это костыль, потому что, инчае боди не передать, ибо axios
     @GetMapping("/radius")
-    public ResponseEntity<List<ATMView>> getAtmsInRadius(@RequestBody UserGeolocation geolocation)throws Exception
-    {
-        System.out.println(geolocation.latitude+"  "+geolocation.longitude);
-        System.out.println(geolocation.distance);
-        
-        
-        return ResponseEntity.ok(service.GetATMsInRadius(geolocation).get());
-    }
+    public ResponseEntity<List<ATMView>> getAtmsInRadius(double latitude, double longitude, double distance)throws Exception
+    {   
+        UserGeolocation geolocation = new UserGeolocation();
+        geolocation.distance=distance;
+        geolocation.latitude = latitude;
+        geolocation.longitude = longitude;
 
+        return ResponseEntity.ok(service.GetATMsInRadius(geolocation).join());
+    }
     @GetMapping("/sort")
-    public ResponseEntity<List<ATMView>> sortByServices(@RequestBody AtmRequest request)
+    public ResponseEntity<List<ATMView>> sortByServices(boolean wheelchairReq,boolean blindReq,
+                                                        boolean nfcForBankCardsReq, boolean qrReadReq,
+                                                        boolean supportsUsdReq,boolean supportsChargeRubReq,
+                                                        boolean supportsEurReq, boolean supportsRubReq,
+                                                        double latitude, double longitude, double distance)
     {
+        UserGeolocation geolocation = new UserGeolocation();
+        geolocation.distance=distance;
+        geolocation.latitude = latitude;
+        geolocation.longitude = longitude;
+
+        AtmRequest request = new AtmRequest();
+        
+        request.setAtms(service.GetATMsInRadius(geolocation).join());
+
+        request.setWheelchairReq(wheelchairReq);
+        request.setBlindReq(blindReq);
+        request.setNfcForBankCardsReq(nfcForBankCardsReq);
+        request.setQrReadReq(qrReadReq);
+        request.setSupportsUsdReq(supportsUsdReq);
+        request.setSupportsChargeRubReq(supportsChargeRubReq);
+        request.setSupportsEurReq(supportsEurReq);
+        request.setSupportsRubReq(supportsRubReq);
         
         return ResponseEntity.ok(service.SortByServices(request).join());
     }

@@ -28,23 +28,42 @@ public class OfficeController
     private OfficeService service;
 
     @GetMapping("/ofs") //получение модели для отображения на карте офисов
-    public ResponseEntity<List<OfficeView>> getOfficesInRadius(@RequestBody UserGeolocation geolocation)
+    public ResponseEntity<List<OfficeView>> getOfficesInRadius(double latitude, double longitude, double distance)
     {
+        UserGeolocation geolocation = new UserGeolocation();
+        geolocation.distance=distance;
+        geolocation.latitude = latitude;
+        geolocation.longitude = longitude;
+
         List<OfficeView> views = service.getOfficeViews(geolocation).join();
         return ResponseEntity.ok(views);
     }
 
     @GetMapping("/sort")
     //возврат отсортированных офисов с либо по близости, либо по заполненности
-    public ResponseEntity<List<OfficeView>> sortOfficesByReq(@RequestBody OfficeRequest request)
-    {
+    public ResponseEntity<List<OfficeView>> sortOfficesByReq(boolean isIndividual,boolean isRko,
+                                                            boolean isRampReq,boolean isClearest,
+                                                            double latitude, double longitude, double distance)
+    {   
+
+        UserGeolocation geolocation = new UserGeolocation();
+        geolocation.distance=distance;
+        geolocation.latitude = latitude;
+        geolocation.longitude = longitude;
+
+        OfficeRequest request = new OfficeRequest();
+        request.offices = service.getOfficeViews(geolocation).join();
+        request.isIndividual = isIndividual;
+        request.isRko = isRko;
+        request.isRampReq = isRampReq;
+        request.isClearest = isClearest;
+
         return ResponseEntity.ok(service.sortByRequest(request).join());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<OfficeModelDto> getOfficeById(@PathVariable UUID id)
     {
-        System.out.println("iohfgdsjkghjklfd");
         return ResponseEntity.ok(service.getOfficeById(id).join());
     }
 }
