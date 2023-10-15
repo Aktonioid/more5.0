@@ -6,7 +6,7 @@ import {IShortAtm} from "../../../Entities/shortAtm";
 import {RequestParamsATM, RequestParamsOffice} from "../../../Entities/requestParams";
 
 
-export const fetchManyEntities = (coords: [number, number], area: number = 30) => {
+export const fetchManyEntities = (coords: [number, number], area: number = 5) => {
     return async (dispatch: Dispatch<ManyEntitiesAction>) => {
         try {
             dispatch({type: ManyEntitiesActions.FETCH_ENTITIES, payload: true})
