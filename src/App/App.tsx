@@ -16,7 +16,8 @@ const App: FC = () => {
     return (
         <section className={classes.app}>
             <InfoComponent userCoordinates={coordinates} isOpenResult={isOpenResult}/>
-            <ParamComponent isAtm={isAtm}/>
+            <ParamComponent isAtm={isAtm} 
+                            coordinates={coordinates}/>
             <MapComponent isAtm={isAtm.state}
                           resultSwitcher={isOpenResult}
                           coordinates={coordinates}

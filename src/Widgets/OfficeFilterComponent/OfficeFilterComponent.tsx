@@ -16,7 +16,7 @@ const OfficeFilterComponent: FC<FilteredComponent> = ({coordinates}) => {
     const isRKO = useInput(false)
     const isClearest = useInput(false)
     const submitHandler: MouseEventHandler<HTMLButtonElement> = (event) => {
-        event.preventDefault()
+        
         const reqObject: RequestParamsOffice = {
             isIndividual: isIndividual.state,
             isRampReq: isRampReq.state,
@@ -31,7 +31,7 @@ const OfficeFilterComponent: FC<FilteredComponent> = ({coordinates}) => {
             <CheckBox label={'Есть пандус для колясок'} value={isRampReq.state} changeHandler={isRampReq.changeHandler}/>
             <CheckBox label={'Есть РКО'} value={isRKO.state} changeHandler={isRKO.changeHandler}/>
             <CheckBox label={'Смотреть ближайшее'} value={isClearest.state} changeHandler={isClearest.changeHandler}/>
-            <button className={classes.button} type="button" onClick={submitHandler}>Submit</button>
+            <button className={classes.button} type="button" onClick={(event) => submitHandler(event)}>Submit</button>
         </form>
     );
 };

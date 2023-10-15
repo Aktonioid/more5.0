@@ -43,8 +43,8 @@ export const fetchFilteredAtms = (param: RequestParamsATM, coordinates: LngLat, 
                 params: {
                     ...param,
                     distance: area,
-                    latitude: coordinates[0],
-                    longitude: coordinates[1]
+                    latitude: coordinates[1],
+                    longitude: coordinates[0]
                 },
                 withCredentials: false
             })
@@ -61,16 +61,21 @@ export const fetchFilteredOffices = (param: RequestParamsOffice, coordinates: Ln
             dispatch({type: ManyEntitiesActions.FETCH_ENTITIES, payload: true})
             const response = await axios.get<IShortOffice[]>('http://localhost:8080/office/sort', {
                 params: {
-                     ...param,
+                    isIndividual: param.isIndividual,
+                    isRko: param.isRKO,
+                    isRampReq: param.isRampReq,
+                    isClearest: param.isClearest,
                     distance: area,
-                    latitude: coordinates[0],
-                    longitude: coordinates[1]
+                    latitude: coordinates[1],
+                    longitude: coordinates[0]
                 },
+            
                 withCredentials: false
             })
             dispatch({type: ManyEntitiesActions.FETCH_ENTITIES_SUCCESS, payload: {offices: response.data, entities: []}})
         } catch (err: any) {
             dispatch({type: ManyEntitiesActions.FETCH_ENTITIES_ERROR, payload: String(err)})
+            console.log(coordinates)
         }
     }
 }
