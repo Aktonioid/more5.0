@@ -1,0 +1,21 @@
+.wrapper {
+    display: none;
+    z-index: 2;
+    min-width: 50vw;
+    height: 100vh;
+    background-color: #002882;
+    border: 4px solid white;
+}
+
+.open {
+    display: block;
+}
+
+.button {
+    background-color: black;
+    color: white;
+    font-size: 17px;
+    position: fixed;
+    left: 10px;
+    top: 10px;
+}

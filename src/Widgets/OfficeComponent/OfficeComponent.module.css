@@ -1,0 +1,15 @@
+.container{
+    background-color: white;
+    margin: 30px;
+    height: 100%;
+    min-width: 30vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
+.text{
+    color: #002882;
+    font-size: 20px;
+}

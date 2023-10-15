@@ -1,0 +1,17 @@
+.block {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    min-width: 5vw;
+    max-width: 10vw;
+}
+
+.label {
+    color: #002882;
+    font-size: 20px;
+    margin: 7px;
+}
+
+.checkbox{
+    border: 1px solid #002882;
+}

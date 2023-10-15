@@ -1,0 +1,24 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial;
+}
+
+a {
+    text-decoration: none;
+}
+
+.user_marker {
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    border-radius: 50%;
+}
+
+.entity_marker {
+    width: 20px;
+    height: 20px;
+    background-color: #002882;
+    border-radius: 50%;
+}
