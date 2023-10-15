@@ -19,6 +19,7 @@ export interface IOffice {
 
 export interface OpenHours {
     days: string,
-    hours: string
+    open: number,
+    close: number
 }
 

@@ -15,11 +15,11 @@ const OfficeComponent:FC<OfficeComponentProps> = ({Office, userCoordinates}) => 
             <p className={classes.text}>{Office.rko}</p>
             <p className={classes.text}>Часы работы для Юрлиц:</p>
             {Office.openHours.map( hours => (
-                <p key={hours.days + hours.hours} className={classes.text}>{`${hours.days}: ${hours.hours}`}</p>
+                <p key={hours.days + hours.open+"-"+hours.close} className={classes.text}>{`${hours.days}: ${hours.close+"-"+hours.open}`}</p>
             ))}
             <p className={classes.text}>Часы работы для Физлиц:</p>
             {Office.openHoursIndividual.map( hours => (
-                <p key={hours.days + hours.hours} className={classes.text}>{`${hours.days}: ${hours.hours}`}</p>
+                <p key={hours.days + hours.open+"-"+hours.close} className={classes.text}>{`${hours.days}: ${hours.close+"-"+hours.open}`}</p>
             ))}
             {Office.hasRamp && <p className={classes.text}>Есть пандус для колясок</p>}
             {Office.metroStation && <p className={classes.text}>{Office.metroStation}</p>}
