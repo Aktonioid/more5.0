@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.concurrent.Executor;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -18,6 +19,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
+@ComponentScan
 @EnableAsync
 public class ApplicationConfig 
 {
@@ -29,7 +31,8 @@ public class ApplicationConfig
         // csrf(AbstractHttpConfigurer::disable)
         .authorizeHttpRequests(auth -> auth.anyRequest().permitAll());
         
-        http.cors(Customizer.withDefaults());
+        // http.cors(Customizer.withDefaults());
+        http.cors(cors -> cors.configurationSource(configurationSource()));
         return http.build();
     }
 
@@ -37,14 +40,18 @@ public class ApplicationConfig
     CorsConfigurationSource configurationSource()
     {
         CorsConfiguration configuration =new CorsConfiguration();
-        configuration.setMaxAge((long)1800);
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080", "http://localhost:5173"));
-        configuration.setAllowedMethods(Arrays.asList("POST","GET"));
-        configuration.setExposedHeaders(Arrays.asList("Access-Control-Allow-Origin","Access-Control-Allow-Credentials"));
+        configuration.setMaxAge((long)18000);
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173"));
+        configuration.validateAllowCredentials();
+        configuration.setAllowedMethods(Arrays.asList("GET"));
+        configuration.setExposedHeaders(Arrays.asList("Origin", "Access-Control-Allow-Origin"));
         
+        
+        System.out.println(configuration.getAllowedOrigins());
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
-        return null;
+        return source;
     }
 
     @Bean

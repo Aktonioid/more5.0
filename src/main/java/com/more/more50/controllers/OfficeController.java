@@ -28,7 +28,6 @@ public class OfficeController
     @Autowired
     private OfficeService service;
 
-    @CrossOrigin("http://localhost:5173")
     @GetMapping("/ofs") //получение модели для отображения на карте офисов
     public ResponseEntity<List<OfficeView>> getOfficesInRadius(double latitude, double longitude, double distance)
     {
@@ -41,7 +40,6 @@ public class OfficeController
         return ResponseEntity.ok(views);
     }
 
-    @CrossOrigin("http://localhost:5173")
     @GetMapping("/sort")
     //возврат отсортированных офисов с либо по близости, либо по заполненности
     public ResponseEntity<List<OfficeView>> sortOfficesByReq(boolean isIndividual,boolean isRko,
@@ -64,7 +62,7 @@ public class OfficeController
         return ResponseEntity.ok(service.sortByRequest(request).join());
     }
 
-    @CrossOrigin("http://localhost:5173")
+    // @CrossOrigin("http://localhost:5173")
     @GetMapping("/{id}")
     public ResponseEntity<OfficeModelDto> getOfficeById(@PathVariable UUID id)
     {
